@@ -15,12 +15,14 @@ else()
     add_library(${PROJECT_NAME} STATIC ${SOURCES})
 endif()
 
+add_library(${CMAKE_PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
 if(STL_INSTALL_LIBS)
-    install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
+    install(TARGETS ${PROJECT_NAME} DESTINATION lib/${CMAKE_PROJECT_NAME})
     file(GLOB HEADERS *.hpp)
     file(GLOB TEMPLATE template/*.tpp)
-    install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})
-    install(FILES ${TEMPLATE} DESTINATION include/${PROJECT_NAME}/template)
+    install(FILES ${HEADERS} DESTINATION include/${CMAKE_PROJECT_NAME})
+    install(FILES ${TEMPLATE} DESTINATION include/${CMAKE_PROJECT_NAME}/template)
 endif()
 
 

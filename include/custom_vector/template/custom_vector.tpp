@@ -2,9 +2,7 @@ namespace custom_stl {
 template <typename T> inline void Vector<T>::resizeArr()
 {
     T *arr_new = moveArr(this->size_);
-    if(!checkArrNull()){
-        freeArr();
-    }
+    freeArr();
     this->arr_ = arr_new;
 }
 
@@ -13,7 +11,7 @@ template <typename T> inline void Vector<T>::update()
     if (this->size_ == 0) {
         toEmpty();
     }
-    else if (this->size_ <= this->capacity_ / 4 || this->size_ >= this->capacity_){
+    else if (this->size_ <= this->capacity_ / 4 || this->size_ >= this->capacity_) {
         resizeArr();
     }
 }
@@ -36,15 +34,15 @@ template <typename T> inline void Vector<T>::offsetToRight(T *it)
 
 template <typename T> inline void Vector<T>::freeArr()
 {
-    delete[] this->arr_;
-    this->arr_ = 0;
+    if (!checkArrNull()) {
+        delete[] this->arr_;
+        this->arr_ = 0;
+    }
 }
 
 template <typename T> inline void Vector<T>::toEmpty()
 {
-    if (!checkArrNull()) {
-        freeArr();
-    }
+    freeArr();
     this->size_ = 0;
     this->capacity_ = 0;
 }
@@ -53,7 +51,7 @@ template <typename T> inline T *Vector<T>::moveArr(const unsigned int size)
 {
     this->capacity_ = size * 2;
     T *arr_new = new T[this->capacity_];
-    if(!checkArrNull()){
+    if (!checkArrNull()) {
         for (unsigned int i = 0; i < size; ++i) {
             arr_new[i] = this->arr_[i];
         }
@@ -99,10 +97,10 @@ template <typename T> inline unsigned int Vector<T>::capacity() { return this->c
 
 template <typename T> inline void Vector<T>::resize(const unsigned int size)
 {
-    if(size == 0){
+    if (size == 0) {
         toEmpty();
     }
-    else{
+    else {
         if (this->arr_ == 0) {
             this->capacity_ = size * 2;
             this->size_ = size;
@@ -118,7 +116,6 @@ template <typename T> inline void Vector<T>::resize(const unsigned int size)
             this->arr_ = arr_new;
         }
     }
-
 }
 
 template <typename T> inline void Vector<T>::insert(T *it, const T elem)
@@ -187,6 +184,14 @@ template <typename T> inline void Vector<T>::erase(T *it)
     update();
 }
 
+template <typename T> inline void Vector<T>::erase(unsigned int index)
+{
+    offsetToLeft(this->begin() + index);
+
+    --this->size_;
+    update();
+}
+
 template <typename T> inline void Vector<T>::clear()
 {
     freeArr();
@@ -204,14 +209,27 @@ template <typename T> inline const T *Vector<T>::cbegin() { return this->arr_; }
 
 template <typename T> inline const T *Vector<T>::cend() { return this->arr_ + this->size_; }
 
-template <typename T> inline T &Vector<T>::operator[](unsigned int index) {
-    return this->arr_[index];
+template <typename T> inline T &Vector<T>::operator[](unsigned int index) { return *(this->arr_ + index); }
+
+template <typename T> inline Vector<T> &Vector<T>::operator=(const Vector<T> &other)
+{
+    if (other.size_ == 0) {
+        toEmpty();
+    }
+    else {
+        freeArr();
+        this->capacity_ = other.capacity_;
+        this->size_ = other.size_;
+        this->arr_ = new T[this->capacity_];
+        for (unsigned int i = 0; i < this->size_; ++i) {
+            this->arr_[i] = other.arr_[i];
+        }
+    }
+    return *this;
 }
 
 template <typename T> inline Vector<T>::~Vector()
-{
-    if (!checkArrNull()) {
-        freeArr();
-    }
+{ 
+    freeArr();
 }
 } // namespace custom_stl

@@ -35,15 +35,15 @@ option(BUILD_VECTOR "Собрать библиотеку для динамиче
 option(BUILD_ARRAY "Собрать библиотеку для статического массива(аналог std::array)" OFF)
 option(BUILD_MAP "Собрать библиотеку для карты на красно-чёрном древе(аналог std::map)" OFF)
 option(BUILD_UNORDERED_MAP "Собрать библиотеку для карты на основе hash-table(аналог std::unordered_map)" OFF)
-option(BUILD_PAIR "Собрать библиотеку для пары(аналог std::pair)" OFF)
-option(BUILD_SINGLE_LIST "Собрать библиотеку для односвязного списка" OFF)
+option(BUILD_PAIR "Собрать библиотеку для пары(аналог std::pair)" ON)
+option(BUILD_SINGLE_LIST "Собрать библиотеку для односвязного списка(аналог std::forward_list)" OFF)
 option(BUILD_DOUBLE_LIST "Собрать библиотеку для двусвязного списка(аналог std::list)" OFF)
 
 #-----------------------------#
 # Опции сборки всех библиотек #
 #-----------------------------#
 
-option(STL_SHARED_LIBS "Создать динамическую версию библиотеки" ON)
+option(STL_SHARED_LIBS "Создать динамическую версию библиотеки" OFF)
 option(STL_INSTALL_LIBS "Создать таргет <install> для библиотеки" ON)
 option(STL_UNINSTALL_LIBS "Создать таргет <uninstall> для библиотеки" ON)
 
@@ -57,7 +57,7 @@ if(BUILD_ALL)
     option(BUILD_EXAMPLE_ARRAY "Собрать пример для custom_stl::Array" OFF)
     option(BUILD_EXAMPLE_MAP "Собрать пример для custom_stl::Map" OFF)
     option(BUILD_EXAMPLE_UNORDERED_MAP "Собрать пример для custom_stl::UnorderedMap" OFF)
-    option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" OFF)
+    option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" ON)
     option(BUILD_EXAMPLE_SINGLE_LIST "Собрать пример для custom_stl::SingleList" OFF)
     option(BUILD_EXAMPLE_DOUBLE_LIST "Собрать пример для custom_stl::DoubleList" OFF)
 else()
@@ -78,7 +78,7 @@ else()
     endif()
 
     if(BUILD_PAIR)
-        option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" OFF)
+        option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" ON)
     endif()
 
     if(BUILD_SINGLE_LIST)

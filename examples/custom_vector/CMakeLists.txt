@@ -7,9 +7,4 @@ project(example_vector
 
 file(GLOB SRC_${PROJECT_NAME} "${PROJECT_NAME}.cpp")
 
-add_custom_target(examples COMMENT "Build examples")
-add_custom_command(
-    TARGET "examples"
-    POST_BUILD
-    COMMENT "Build example custom_stl::Vector"
-    COMMAND g++ ${SRC_${PROJECT_NAME}} -o ${PROJECT_NAME})
+add_executable(${PROJECT_NAME} ${SRC_${PROJECT_NAME}})

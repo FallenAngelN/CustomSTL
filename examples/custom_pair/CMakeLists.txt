@@ -7,4 +7,4 @@ project(example_pair
 
 file(GLOB SRC_${PROJECT_NAME} "${PROJECT_NAME}.cpp")
 
-add_executable(${PROJECT_NAME} SRC_${EXAMPLE_VECTOR})
+add_executable(${PROJECT_NAME} ${SRC_${PROJECT_NAME}})
