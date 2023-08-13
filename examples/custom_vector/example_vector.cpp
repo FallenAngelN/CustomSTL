@@ -48,6 +48,8 @@ template <typename T> void checkOperatorIndex(Vector<T> &v);
 
 template <typename T> void checkOperatorAssignment(Vector<T> &v);
 
+template <typename T> void checkInitializerList();
+
 int main()
 {
     Vector<int> v = checkDefaultConstructor<int>();
@@ -85,6 +87,8 @@ int main()
     checkOperatorIndex(v);
 
     checkOperatorAssignment(v);
+
+    checkInitializerList<int>();
 }
 
 template <typename T> void showArrVector(Vector<T> &v)
@@ -453,4 +457,10 @@ template <typename T> void checkOperatorAssignment(Vector<T> &v)
     showDataVector(v);
 
     clearVector(v);
+}
+
+template <typename T> void checkInitializerList(){
+    cout << "Check Constructor with initializer_list" << endl;
+    Vector<T> v{1,2,3,4,5};
+    showDataVector(v);
 }

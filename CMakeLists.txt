@@ -5,8 +5,6 @@ project(custom_stl
     DESCRIPTION "Кастомная версия библиотеки stl. Автор: Fallen Angel"
     LANGUAGES CXX)
 
-
-
 #-------------------------------------------------#
 #-------------------------------------------------#
 #----- Пространство подключения зависимостей -----#
@@ -17,7 +15,6 @@ project(custom_stl
 # Так как моя версия не зависит от сторонних библиотек, то тут пусто:)#
 # Но, вы можете использовать это для себя                             #
 #---------------------------------------------------------------------#
-
 
 
 #------------------------------#
@@ -36,7 +33,7 @@ option(BUILD_ARRAY "Собрать библиотеку для статичес�
 option(BUILD_MAP "Собрать библиотеку для карты на красно-чёрном древе(аналог std::map)" OFF)
 option(BUILD_UNORDERED_MAP "Собрать библиотеку для карты на основе hash-table(аналог std::unordered_map)" OFF)
 option(BUILD_PAIR "Собрать библиотеку для пары(аналог std::pair)" ON)
-option(BUILD_SINGLE_LIST "Собрать библиотеку для односвязного списка(аналог std::forward_list)" OFF)
+option(BUILD_SINGLE_LIST "Собрать библиотеку для односвязного списка(аналог std::forward_list)" ON)
 option(BUILD_DOUBLE_LIST "Собрать библиотеку для двусвязного списка(аналог std::list)" OFF)
 
 #-----------------------------#
@@ -52,43 +49,7 @@ option(STL_UNINSTALL_LIBS "Создать таргет <uninstall> для биб
 #-----------------------------------------------#
 
 
-if(BUILD_ALL)
-    option(BUILD_EXAMPLE_VECTOR "Собрать пример для custom_stl::Vector" ON)
-    option(BUILD_EXAMPLE_ARRAY "Собрать пример для custom_stl::Array" OFF)
-    option(BUILD_EXAMPLE_MAP "Собрать пример для custom_stl::Map" OFF)
-    option(BUILD_EXAMPLE_UNORDERED_MAP "Собрать пример для custom_stl::UnorderedMap" OFF)
-    option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" ON)
-    option(BUILD_EXAMPLE_SINGLE_LIST "Собрать пример для custom_stl::SingleList" OFF)
-    option(BUILD_EXAMPLE_DOUBLE_LIST "Собрать пример для custom_stl::DoubleList" OFF)
-else()
-    if(BUILD_VECTOR)
-        option(BUILD_EXAMPLE_VECTOR "Собрать пример для custom_stl::Vector" ON)
-    endif()
-
-    if(BUILD_ARRAY)
-        option(BUILD_EXAMPLE_ARRAY "Собрать пример для custom_stl::Array" OFF)
-    endif()
-
-    if(BUILD_MAP)
-        option(BUILD_EXAMPLE_MAP "Собрать пример для custom_stl::Map" OFF)
-    endif()
-
-    if(BUILD_UNORDERED_MAP)
-        option(BUILD_EXAMPLE_UNORDERED_MAP "Собрать пример для custom_stl::UnorderedMap" OFF)
-    endif()
-
-    if(BUILD_PAIR)
-        option(BUILD_EXAMPLE_PAIR "Собрать пример для custom_stl::Pair" ON)
-    endif()
-
-    if(BUILD_SINGLE_LIST)
-        option(BUILD_EXAMPLE_SINGLE_LIST "Собрать пример для custom_stl::SingleList" OFF)
-    endif()
-
-    if(BUILD_DOUBLE_LIST)
-        option(BUILD_EXAMPLE_DOUBLE_LIST "Собрать пример для custom_stl::DoubleList" OFF)
-    endif()
-endif()
+option(BUILD_EXAMPLES "Собрать примеры для библиотек" ON)
 
 
 #------------------------------------------------#
@@ -143,32 +104,10 @@ endif()
 # Сборка примеров для собранных библиотек #
 #-----------------------------------------#
 
-if(BUILD_EXAMPLE_VECTOR)
+if(BUILD_EXAMPLES)
     add_subdirectory(examples/custom_vector)
-endif()
-
-if(BUILD_EXAMPLE_ARRAY)
-    add_subdirectory(examples/custom_array)
-endif()
-
-if(BUILD_EXAMPLE_MAP)
-    add_subdirectory(examples/custom_map)
-endif()
-
-if(BUILD_EXAMPLE_UNORDERED_MAP)
-    add_subdirectory(examples/custom_unordered_map)
-endif()
-
-if(BUILD_EXAMPLE_PAIR)
     add_subdirectory(examples/custom_pair)
-endif()
-
-if(BUILD_EXAMPLE_SINGLE_LIST)
     add_subdirectory(examples/custom_single_list)
-endif()
-
-if(BUILD_EXAMPLE_DOUBLE_LIST)
-    add_subdirectory(examples/custom_double_list)
 endif()
 
 #-------------------------------------------------------------------#
